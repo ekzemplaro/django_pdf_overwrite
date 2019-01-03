@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta http-equiv="CONTENT-TYPE" content="text/html; charset=utf-8" />
+<!--
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+-->
+{% load static %}
+<script src="{% static 'pdf_overwrite/jquery-3.3.1.min.js' %}"></script>
+<script src="{% static 'pdf_overwrite/pdf_overwrite.js' %}"></script>
+<link rel="stylesheet" href="{% static 'pdf_overwrite/pdf_overwrite.css' %}">
+<title>pdf_overwrite</title>
+</head>
+<body>
+<h2>請求書発行システム</h2>
+{{ hour }}時{{ minute }}分です。<br>
+{{ message | safe }}<p />
+<hr />
+<span class='green'>green</span>
+<span class='red'>red</span>
+<span class='blue'>blue</span>
+<hr />
+<table class="main">
+<tr>
+<th class="main">PDF ファイル名</th>
+<td class="main"><input type="text" id="pdf_out" /></td>
+</tr>
+<tr>
+<th class="main">宛先</th>
+<td class="main"><input type="text" id="receiver" /></td>
+</tr>
+<tr>
+<th class="main">請求金額</th>
+<td class="main"><input type="text" id="price" /></td>
+</tr>
+</table>
+<p />
+<button class="check" id="submit">発行</button>
+<hr />
+<div id="outarea_aa">outarea_aa</div>
+<div id="outarea_bb">outarea_bb</div>
+<div id="outarea_cc">outarea_cc</div>
+<div id="outarea_dd">outarea_dd</div>
+<div id="outarea_ee">outarea_ee</div>
+<div id="outarea_ff">outarea_ff</div>
+<div id="outarea_gg">outarea_gg</div>
+<div id="outarea_hh">outarea_hh</div>
+<hr />
+pdf_overwrite.html<p />
+Jan/03/2019 AM 11:24<p />
+</body>
+</html>
