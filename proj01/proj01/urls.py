@@ -19,6 +19,7 @@ from django.urls import include
 import pdf_overwrite.views as pdf_overwrite
 
 urlpatterns = [
+    path('pdf_overwrite/list/',pdf_overwrite.list_dir_proc),
     path('pdf_overwrite/main/',pdf_overwrite.pdf_main_proc),
     path('pdf_overwrite/', include('pdf_overwrite.urls')),
     path('admin/', admin.site.urls),

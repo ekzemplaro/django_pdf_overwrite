@@ -1,10 +1,16 @@
 # --------------------------------------------------------------------
+#
+#	overwrite/views.py
+#
+#						Jan/04/2019
+# --------------------------------------------------------------------
 import	sys
 import	os
+import	glob
 
 from datetime import datetime
 #
-
+from django.conf import settings
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
@@ -99,3 +105,13 @@ def pdf_generate_proc(pdf_out,receiver,price):
 #
 	return response
 # --------------------------------------------------------------------
+def list_dir_proc(request):
+	str_out = ""
+#	files = os.listdir(settings.BASE_DIR + "/media/documents/")
+	files = glob.glob(settings.BASE_DIR + "/media/documents/*.pdf")
+	for file in files:
+#		str_out += file + "<br />"
+		str_out += os.path.basename(file) + "<br />"
+#
+	return HttpResponse(str_out)
+# ------------------------------------------------------------------
