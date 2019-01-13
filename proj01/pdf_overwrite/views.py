@@ -2,7 +2,7 @@
 #
 #	overwrite/views.py
 #
-#						Jan/04/2019
+#						Jan/13/2019
 # --------------------------------------------------------------------
 import	sys
 import	os
@@ -15,13 +15,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 
-from pdfrw import PdfReader
-from pdfrw.buildxobj import pagexobj
-from pdfrw.toreportlab import makerl
-#
-from reportlab.pdfgen import canvas
-from reportlab.pdfbase.cidfonts import UnicodeCIDFont
-from reportlab.pdfbase import pdfmetrics
+from pdf_overwrite.lib.pdf_generate import pdf_generate_proc
 
 # ------------------------------------------------------------------
 def index(request):
@@ -39,7 +33,6 @@ def index(request):
 # ------------------------------------------------------------------
 @csrf_exempt 
 def pdf_main_proc(request):
-	response = None
 	sys.stderr.write("*** pdf_main_proc *** start ***\n")
 #
 	if (request.method == 'POST'):
@@ -56,8 +49,10 @@ def pdf_main_proc(request):
 #
 		sys.stderr.write("*** receiver: " + receiver+ "\n")
 		sys.stderr.write("price: " + price + "\n")
+		file_template = "media/templates/template_seikyusho.pdf"
+		file_pdf = "media/documents/" + pdf_out
 		try:
-			response = pdf_generate_proc(pdf_out,receiver,price)
+			result = pdf_generate_proc(file_template,file_pdf,receiver,price)
 		except Exception as ee:
 			sys.stderr.write("*** error *** in pdf_generate_proc ***\n")
 			sys.stderr.write(str(ee) + "\n")
@@ -65,45 +60,7 @@ def pdf_main_proc(request):
 	sys.stderr.write("*** pdf_main_proc *** end ***\n")
 #
 	str_out = "Success"
-	return response
-#	return HttpResponse(str_out)
-# --------------------------------------------------------------------
-def pdf_generate_proc(pdf_out,receiver,price):
-	sys.stderr.write("*** pdf_generate_proc *** start ***\n")
-#
-	response = HttpResponse(content_type='application/pdf')
-	file_pdf = "media/documents/" + pdf_out
-	file_template = "media/templates/template_seikyusho.pdf"
-
-	response['Content-Disposition'] = 'attachment; filename=' + file_pdf
-	# Create the PDF object, using the response object as its "file."
-#
-#
-	cc = canvas.Canvas(response)
-	cc = canvas.Canvas(file_pdf)
-#
-#
-	fontname_g = "HeiseiKakuGo-W5"
-	pdfmetrics.registerFont (UnicodeCIDFont (fontname_g))
-	cc.setFont(fontname_g,16)
-	#
-	page = PdfReader(file_template,decompress=False).pages
-	pp = pagexobj(page[0])
-	cc.doForm(makerl(cc, pp))
-#
-
-	today = datetime.today()
-	str_today = today.strftime('%Y-%m-%d')
-	#
-	cc.drawString(400, 800, str_today)
-	cc.drawString(100, 725, receiver)
-	cc.drawString(100, 680, str(price))
-	#
-	cc.showPage()
-	cc.save()
-	sys.stderr.write("*** pdf_generate_proc *** end ***\n")
-#
-	return response
+	return HttpResponse(str_out)
 # --------------------------------------------------------------------
 def list_dir_proc(request):
 	str_out = ""

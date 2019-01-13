@@ -1,16 +1,16 @@
 // -----------------------------------------------------------------------
 //	pdf_overwrite.js
 //
-//					Jan/03/2019
+//					Jan/13/2019
 //
 // -----------------------------------------------------------------------
 jQuery (function ()
 {
-	jQuery("#outarea_aa").html ("*** pdf_overwrite.js *** start *** Jan/03/2019 ***")
+	jQuery("#outarea_aa").html ("*** pdf_overwrite.js *** start *** Jan/13/2019 ***")
 
 	click_check_proc ()
 
-	jQuery("#outarea_hh").html ("*** pdf_overwrite.js *** end *** Jan/03/2019 ***")
+	jQuery("#outarea_hh").html ("*** pdf_overwrite.js *** end *** Jan/13/2019 ***")
 })
 
 // -----------------------------------------------------------------------
